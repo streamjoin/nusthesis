@@ -5,8 +5,11 @@ set -o pipefail
 
 #### Begin of Configurations ####
 
-TEX_NAME="thesis"
+# name of the output .pdf file
 PDF_NAME="ChickenR"
+
+# name of the main .tex file
+TEX_NAME="thesis"
 
 #### End of Configurations ####
 
