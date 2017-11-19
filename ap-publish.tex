@@ -1,0 +1,24 @@
+\begin{refsection}
+\nocite{%
+  TR04:Arasu,
+  nsdi12:Zaharia,
+  tods76:Chen
+}
+
+\defbibnote{PubListPrenote}{%
+% provide some text, if any, before the list of publications
+}
+\defbibnote{PubListPostnote}{%
+% provide some text, if any, after the list of publications
+}
+
+\bookmarksetup{startatroot}
+\newrefcontext[sorting=none]
+\printbibliography[
+  heading=bibintoc,
+  sorting=none,
+  title={List of Publications during PhD Study},
+  prenote=PubListPrenote,
+  postnote=PubListPostnote
+]
+\end{refsection}

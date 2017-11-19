@@ -1,0 +1,55 @@
+%%% enable "DoubleSided" for paper-based submission, i.e. printing, and 
+%%% remove it for the final submission, i.e. electronic thesis
+%\newcommand*{\DoubleSided}{} 
+
+\input{_global_settings.tex}
+
+\begin{document}
+
+\title{We Are What We Eat: The Recipe of Success}
+
+\author{CHICKEN Rice}
+\prevdegrees{%
+  B.S., Culinary University}
+\degree{Doctor of Philosophy}
+\field{Cooking Science}
+\degreeyear{2017}
+\supervisor{Professor Hamburger STEAK}
+
+% only involve the examiners in the final submission
+\examiners{%
+  Associate Professor CHAR Kway Teow \\
+  Assistant Professor Yummy Bee Hoon GRAB \\
+  Professor BAK Kwa, Dessert University}
+
+\maketitle
+
+\declaredate{20 November 2017}
+\declaresign{pic/signature.jpg} % remove this if you prefer to sign physically
+\declarationpage
+
+\begin{frontmatter}
+  \dedicate{To my delicious friends}
+  \input{acknowledgments.tex}
+  \tableofcontents 
+  \input{abstract.tex}
+  \listoffigures
+  \listoftables
+\end{frontmatter}
+
+\input{ch-Intro.tex}
+\input{ch-Review.tex}
+\input{ch-Rice.tex}
+\input{ch-Noodle.tex}
+\input{ch-Concl.tex}
+
+\bookmarksetup{startatroot}
+\printbibliography[heading=bibintoc]
+
+\appendix
+\input{ap-Recipes.tex}
+\input{ap-Ingredients.tex}
+
+\input{ap-publish.tex} % optional to include your publication list
+
+\end{document}

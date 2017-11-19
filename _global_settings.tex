@@ -1,0 +1,149 @@
+\ifdefined\DoubleSided
+  \documentclass[twoside,openright]{nusthesis}
+\else
+  \documentclass{nusthesis}
+\fi
+
+\dsp % pseudo double spacing
+
+%%% The abstract of the thesis is titled as "Abstract" by default. 
+%%% However, the Graduate Division may require you to name it as "Summary".
+%\renewcommand{\abstractname}{Summary}
+
+%%% Depth of section numbering
+\setcounter{secnumdepth}{3}
+
+%%% Depth of numbering in table of content
+\setcounter{tocdepth}{2}
+
+\usepackage{indentfirst} % indent the first paragraph of a section
+
+\usepackage{bookmark}
+\usepackage[
+  backend=biber,
+  style=ieee,
+  citestyle=numeric,
+  giveninits=true,
+  sorting=nyt,
+  maxbibnames=99,
+  dashed=false,
+  doi=false]{biblatex}
+\DeclareFieldFormat*{title}{``#1''\newunitpunct} % move comma outside the quotation mark
+\addbibresource{references.bib}
+
+\usepackage{microtype} % Better typography
+\usepackage{tabulary} % Automatic table sizing
+\usepackage{hhline}
+
+\usepackage{enumitem}
+
+\usepackage{hyperref}
+\renewcommand{\sectionautorefname}{\S}
+\let\subsectionautorefname\sectionautorefname
+\let\subsubsectionautorefname\sectionautorefname
+\renewcommand{\chapterautorefname}{Chapter}
+
+\usepackage{listings}
+\renewcommand{\lstlistingname}{Code}
+\lstset{language=SQL, 
+    morekeywords={ONLINE, WITHIN},
+    frame=none,
+    float,
+    basicstyle=\ttfamily\normalsize,
+    keywordstyle=\bfseries,
+    numbers=none,
+    showstringspaces=false,
+    aboveskip=-2pt, %\smallskipamount
+    belowskip=-4pt, %\smallskipamount
+    xleftmargin=1em,
+    escapeinside={(*@}{@*)},
+    captionpos=b
+}
+
+\let\proof\relax
+\let\endproof\relax
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition} \newcommand{\defnautorefname}{Definition}
+\theoremstyle{plain}
+\newtheorem{rul}{Rule} \newcommand{\rulautorefname}{Rule}
+\newtheorem{thm}{Theorem} \newcommand{\thmautorefname}{Theorem}
+\newtheorem{lemma}{Lemma} \newcommand{\lemmaautorefname}{Lemma}
+\newtheorem{coroll}{Corollary} \newcommand{\corollautorefname}{Corollary}
+
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\DeclarePairedDelimiter{\vbar}{\vert}{\vert}
+\DeclarePairedDelimiter{\vbarbar}{\Vert}{\Vert}
+\DeclarePairedDelimiter{\parenLR}{\lparen}{\rparen}
+\DeclarePairedDelimiter{\brackLR}{\lbrack}{\rbrack}
+\DeclarePairedDelimiter{\braceLR}{\lbrace}{\rbrace}
+\DeclarePairedDelimiter{\angleLR}{\langle}{\rangle}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\usepackage{interval}
+\intervalconfig{soft open fences}
+\newcommand{\intervalO}{\interval[open]}
+\newcommand{\intervalOL}{\interval[open left]}
+\newcommand{\intervalOR}{\interval[open right]}
+
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\SetAlgorithmName{Algorithm}{Algorithm}{Algorithm}
+\newcommand{\AlgoFontSize}{\small} % \scriptsize \footnotesize \small \normalsize
+\IncMargin{0.5em}
+\SetCommentSty{textnormal}
+\SetNlSty{}{}{:}
+\SetAlgoNlRelativeSize{0}
+\SetKwInput{KwGlobal}{Global}
+\SetKwInput{KwPrecondition}{Precondition}
+\SetKwProg{Proc}{Procedure}{:}{}
+\SetKwProg{Func}{Function}{:}{}
+\SetKw{And}{and}
+\SetKw{Or}{or}
+\SetKw{To}{to}
+\SetKw{DownTo}{downto}
+\SetKw{Break}{break}
+\SetKw{Continue}{continue}
+\SetKw{SuchThat}{\textit{s.t.}}
+\SetKw{WithRespectTo}{\textit{wrt}}
+\SetKw{Iff}{\textit{iff.}}
+\SetKw{MaxOf}{\textit{max of}}
+\SetKw{MinOf}{\textit{min of}}
+\SetKwBlock{Match}{match}{}{}
+
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{soul}
+\soulregister\cite7
+\soulregister\ref7
+\soulregister\pageref7
+\soulregister\autoref7
+\soulregister\eqref7
+\newcommand{\hlred}[2][Lavender]{{\sethlcolor{#1}\hl{#2}}}
+\newcommand{\hlblue}[2][SkyBlue]{{\sethlcolor{#1}\hl{#2}}}
+\newcommand{\hlyellow}[2][GreenYellow]{{\sethlcolor{#1}\hl{#2}}}
+\newcommand{\hlgreen}[2][YellowGreen]{{\sethlcolor{#1}\hl{#2}}}
+
+\let\originaleqref\eqref
+\renewcommand{\eqref}{Equation~\ref}
+
+%%% Use this command when you need to add a hyphen with hyphenation 
+%%% enabled for the individual compound words
+\newcommand{\zz}{-\nolinebreak\hspace{0pt}}
+
+\newcommand*{\PicDir}{pic}
+\newcommand*{\ExpDir}{exp}
+\newcommand*{\Pic}[2]{\PicDir /#2.#1}
+\newcommand*{\Exp}[2]{\ExpDir /#2.#1}
+
+\newcommand*{\BeforeCaptionVSpace}{1ex}
+\newcommand*{\BeforeSubCaptionVSpace}{0.75ex}
+
+\usepackage{lipsum} % for generating dummy text
