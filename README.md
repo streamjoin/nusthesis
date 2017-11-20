@@ -10,8 +10,10 @@ You may refer to [this](https://www.dropbox.com/s/rar6yxn9u6n19dp/ChickenR.pdf?d
 
 ## Compilation ##
 
-Run the `build.sh` script to compile in Linux.
-You may customize the name of the output .pdf file by configuring `PDF_NAME` in the script. 
+Run the `build.sh` script to compile in Linux, macOS or emulated Unix-like environment for Windows (e.g., [Cygwin](https://www.cygwin.com/) and [MinGW](http://www.mingw.org/ "Minimalist GNU for Windows")).
+For compilation in the native Windows, run the `build.bat` script.  
+
+You may customize the name of the output .pdf file by configuring `PDF_NAME` in the above scripts. 
 
 ## Dependencies ##
 
