@@ -7,7 +7,7 @@ set TEX_NAME="thesis"
 
 rem #### End of Configurations ####
 
-set WAIT_FOR_SEC=2
+set WAIT_FOR_SEC=5
 
 :main_entry
 @del /F %PDF_NAME%.pdf
@@ -16,7 +16,7 @@ IF EXIST %PDF_NAME%.pdf goto err
 set TEX_FILE="%TEX_NAME%.tex"
 
 pdflatex %TEX_FILE%
-bibtex %TEX_NAME%
+biber %TEX_NAME%
 pdflatex %TEX_FILE%
 pdflatex %TEX_FILE%
 
@@ -29,7 +29,7 @@ goto end
 
 :err
 @echo Error: PDF file is in use! (auto-retry in %WAIT_FOR_SEC% seconds)
-sleep %WAIT_FOR_SEC%
+timeout %WAIT_FOR_SEC%
 goto main_entry
 
 :end
