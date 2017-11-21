@@ -138,13 +138,22 @@
 %%% enabled for the individual compound words
 \newcommand{\zz}{-\nolinebreak\hspace{0pt}}
 
-\newcommand*{\PicDir}{pic}
-\newcommand*{\ExpDir}{exp}
+%%% Handy commands for image/figure insertion
+\newcommand*{\RootPicDir}{../pic}
+\newcommand*{\PicDir}{\RootPicDir}
+\newcommand*{\ResetPicDir}{\renewcommand*{\PicDir}{\RootPicDir}}
+\newcommand*{\SetPicSubDir}[1]{\renewcommand*{\PicDir}{\RootPicDir /#1}}
 \newcommand*{\Pic}[2]{\PicDir /#2.#1}
+
+\newcommand*{\RootExpDir}{../exp}
+\newcommand*{\ExpDir}{\RootExpDir}
+\newcommand*{\ResetExpDir}{\renewcommand*{\ExpDir}{\RootExpDir}}
+\newcommand*{\SetExpSubDir}[1]{\renewcommand*{\ExpDir}{\RootExpDir /#1}}
 \newcommand*{\Exp}[2]{\ExpDir /#2.#1}
 
 \newcommand*{\BeforeCaptionVSpace}{1ex}
 \newcommand*{\BeforeSubCaptionVSpace}{0.75ex}
 
+%%% For example code used only
 \usepackage{lipsum} % for generating dummy text
 \newcommand{\CMD}[1]{\texttt{\string#1}} % for typing a command
