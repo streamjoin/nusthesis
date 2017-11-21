@@ -1,55 +1,50 @@
-#!/bin/sh
+#!/bin/bash
 set -o nounset
 set -o errexit
 set -o pipefail
 
-#### Begin of Configurations ####
-
-# name of the output .pdf file
+# Name of the output .pdf file
 PDF_NAME="ChickenR"
 
-# folder containing source code
-SRC_DIR="src"
-
-# name of the main .tex file
+# Name of the main .tex file
 TEX_NAME="thesis"
 
-#### End of Configurations ####
+################################################
+
+WORK_DIR=$(pwd)
+SRC_DIR="${WORK_DIR}/src"
+BUILD_DIR="${WORK_DIR}/pdfbuild"
 
 delete() {
-	if [[ -f $1 ]]; then 
-		rm $1
-	fi
+	if [[ -f $1 ]]; then rm $1; fi
 }
 
 delete_or_else_exit() {
 	delete $1
-	if [[ -f $1 ]]; then 
-		exit 1
-	fi
+	if [[ -f $1 ]]; then exit 1; fi
 }
 
 delete_or_else_exit ${PDF_NAME}.pdf
 
-# compile
-WORK_DIR=$(pwd)
+mkdir -p ${BUILD_DIR} 
+rm -rf ${BUILD_DIR}/*
 
-COMPILE_TEX="pdflatex ${TEX_NAME}.tex -output-directory ${WORK_DIR}"
-COMPILE_BIB="biber ${WORK_DIR}/${TEX_NAME}"
+compile_tex() {
+  pdflatex ${TEX_NAME}.tex -output-directory ${BUILD_DIR}
+}
+
+compile_bib() {
+  biber ${BUILD_DIR}/${TEX_NAME}
+}
 
 cd ${SRC_DIR}
-${COMPILE_TEX}
-${COMPILE_BIB}
-${COMPILE_TEX}
-${COMPILE_TEX}
+compile_tex 
+compile_bib 
+compile_tex
+compile_tex
+
 cd ${WORK_DIR}
-
-# rename output files
-if [[ "${TEX_NAME}" != "${PDF_NAME}" ]]; then
-	mv ${TEX_NAME}.pdf ${PDF_NAME}.pdf
-fi
-
-# clean and exit
-sh delete_tmp.sh
+mv ${BUILD_DIR}/${TEX_NAME}.pdf ${WORK_DIR}/${PDF_NAME}.pdf
+rm -rf ${BUILD_DIR}
 
 exit $?
