@@ -8,6 +8,9 @@ set -o pipefail
 # name of the output .pdf file
 PDF_NAME="ChickenR"
 
+# folder containing source code
+SRC_DIR="src"
+
 # name of the main .tex file
 TEX_NAME="thesis"
 
@@ -29,12 +32,17 @@ delete_or_else_exit() {
 delete_or_else_exit ${PDF_NAME}.pdf
 
 # compile
-TEX_FILE="${TEX_NAME}.tex"
+WORK_DIR=$(pwd)
 
-pdflatex ${TEX_FILE}
-biber ${TEX_NAME}
-pdflatex ${TEX_FILE}
-pdflatex ${TEX_FILE}
+COMPILE_TEX="pdflatex ${TEX_NAME}.tex -output-directory ${WORK_DIR}"
+COMPILE_BIB="biber ${WORK_DIR}/${TEX_NAME}"
+
+cd ${SRC_DIR}
+${COMPILE_TEX}
+${COMPILE_BIB}
+${COMPILE_TEX}
+${COMPILE_TEX}
+cd ${WORK_DIR}
 
 # rename output files
 if [[ "${TEX_NAME}" != "${PDF_NAME}" ]]; then

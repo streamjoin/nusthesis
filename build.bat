@@ -3,6 +3,7 @@
 rem #### Begin of Configurations ####
 
 set PDF_NAME="ChickenR"
+set SRC_DIR="src"
 set TEX_NAME="thesis"
 
 rem #### End of Configurations ####
@@ -13,12 +14,16 @@ set WAIT_FOR_SEC=5
 @del /F %PDF_NAME%.pdf
 IF EXIST %PDF_NAME%.pdf goto err
 
-set TEX_FILE="%TEX_NAME%.tex"
+set WORK_DIR="%CD%"
+set COMPILE_TEX=pdflatex %TEX_NAME%.tex -output-directory %WORK_DIR%
+set COMPILE_BIB=biber %WORK_DIR%/%TEX_NAME%
 
-pdflatex %TEX_FILE%
-biber %TEX_NAME%
-pdflatex %TEX_FILE%
-pdflatex %TEX_FILE%
+cd %SRC_DIR%
+%COMPILE_TEX%
+%COMPILE_BIB%
+%COMPILE_TEX%
+%COMPILE_TEX%
+cd %WORK_DIR%
 
 if %TEX_NAME% neq %PDF_NAME% (
     rename %TEX_NAME%.pdf %PDF_NAME%.pdf
