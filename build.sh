@@ -16,12 +16,12 @@ SRC_DIR="${WORK_DIR}/src"
 BUILD_DIR="${WORK_DIR}/pdfbuild"
 
 delete() {
-	if [[ -f $1 ]]; then rm $1; fi
+  if [[ -f $1 ]]; then rm $1; fi
 }
 
 delete_or_else_exit() {
-	delete $1
-	if [[ -f $1 ]]; then exit 1; fi
+  delete $1
+  if [[ -f $1 ]]; then exit 1; fi
 }
 
 delete_or_else_exit ${PDF_NAME}.pdf
