@@ -22,7 +22,55 @@
 \section{Methodology}
 
 \autoref{Rice:fig:bowl_of_rice} shows a bowl of rice. 
-\lipsum[9-15]
+\autoref{Rice:algo:sample} demonstrates the formatting of pseudo code. 
+Please carefully check the source files and learn how to use this style. 
+Importantly:
+
+\begin{itemize}
+\item Always state your input.
+
+\item State the output if any. 
+
+\item Always number your lines for quick referral.
+
+\item Always declare and initialize your local variables. 
+
+\item Always use \textbackslash gets for assignments.
+\end{itemize}
+
+\begin{algorithm}[!t]
+\AlgoFontSize
+\DontPrintSemicolon
+
+\KwGlobal{max. calories of daily intake $\mathcal{C}$}
+\KwGlobal{calories per bowl of rice $\mathcal{B}$}
+\BlankLine
+
+\KwIn{number of bowls of rice $n$}
+\KwOut{calories intake}
+\Proc{\fEatRice{$n$}}{
+  $cal \gets n \times \mathcal{B} - \fDoExercise{n}$\;
+  \uIf{$cal \geq \mathcal{C}$}{
+    \Return $\mathcal{C}$\;
+  }
+  \Else{
+    \Return $cal$\;
+  }
+}
+
+\BlankLine
+
+\KwIn{time duration (in minutes) of exercise $t$}
+\KwOut{calories consumed}
+\Func{\fDoExercise{$t$}}{
+  $cal \gets 0$\;
+  \lFor{$i \gets 1 \To t$}{$cal \gets cal + i$\;}
+  \Return $cal$\;
+}
+
+\caption{Sample pseudo code of a dummy algorithm.}
+\label{Rice:algo:sample}
+\end{algorithm}
 
 \section{Evaluation}
 
