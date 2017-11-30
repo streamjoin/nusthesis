@@ -1,0 +1,8 @@
+# meals	White Rice	Brown Rice	Chicken Rice	Duck Rice	Fried Rice
+1	75	65	95	90	85
+2	60	35	90	80	70
+3	45	25	85	70	65
+4	40	20	80	60	55
+5	25	15	65	50	45
+6	20	10	55	40	30
+7	15	8	40	30	25

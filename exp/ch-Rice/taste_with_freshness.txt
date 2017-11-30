@@ -1,0 +1,6 @@
+# Rice Type	Fresh	Overnight
+White	75	65
+Brown	65	40
+Chicken	95	80
+Duck	90	60
+Fried	85	82

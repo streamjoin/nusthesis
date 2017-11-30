@@ -35,7 +35,8 @@ Importantly:
 
 \item Always declare and initialize your local variables. 
 
-\item Always use \textbackslash gets for assignments.
+\item Always use \CMD{\gets} (``$\gets$'') for assignments.
+%Always use \textbackslash gets for assignments.
 \end{itemize}
 
 \begin{algorithm}[!t]
@@ -46,15 +47,18 @@ Importantly:
 \KwGlobal{calories per bowl of rice $\mathcal{B}$}
 \BlankLine
 
+\SetKwFunction{fEatRice}{EatRice}
+\SetKwFunction{fDoExercise}{DoExercise}
+
 \KwIn{number of bowls of rice $n$}
 \KwOut{calories intake}
 \Proc{\fEatRice{$n$}}{
-  $cal \gets n \times \mathcal{B} - \fDoExercise{n}$\;
+  $cal \gets n \times \mathcal{B}$\;
   \uIf{$cal \geq \mathcal{C}$}{
     \Return $\mathcal{C}$\;
   }
   \Else{
-    \Return $cal$\;
+    \Return $cal - \fDoExercise{n}$\;
   }
 }
 
@@ -64,7 +68,7 @@ Importantly:
 \KwOut{calories consumed}
 \Func{\fDoExercise{$t$}}{
   $cal \gets 0$\;
-  \lFor{$i \gets 1 \To t$}{$cal \gets cal + i$\;}
+  \lFor{$i \gets 1$ \To $t$}{$cal \gets cal + i$}
   \Return $cal$\;
 }
 
@@ -74,7 +78,27 @@ Importantly:
 
 \section{Evaluation}
 
-\lipsum[16-20]
+\lipsum[16-19]
+
+\begin{figure}[!t]
+  \centering
+  \begin{minipage}[b]{.45\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{\Exp{eps}{taste_with_meals}}
+    \caption{Taste with meal repetition.}
+    \label{Rice:exp:taste_with_meals}
+  \end{minipage}
+  \hspace*{2em}
+  \begin{minipage}[b]{.45\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{\Exp{eps}{taste_with_freshness}}
+    \caption{Taste with meal freshness.}
+    \label{Rice:exp:taste_with_freshness}
+  \end{minipage}
+\end{figure}
+
+\autoref{Rice:exp:taste_with_meals} and \autoref{Rice:exp:taste_with_freshness} show how the taste of rice is affected by meal repetition and freshness respectively. 
+\lipsum[20]
 
 \section{Summary}
 
