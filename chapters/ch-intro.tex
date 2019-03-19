@@ -1,0 +1,62 @@
+\SetPicSubDir{ch-Intro}
+
+\chapter{Introduction}
+\vspace{2em}
+
+\lipsum[1]
+
+\section{Overview}
+
+This section includes some tricks extracted from my years' experience of using \LaTeX{}.
+Rule of thumb: Doing the right things in the right way can your efforts. 
+And I am just the right person telling you this. 
+
+\subsection{Citing, Referring and Hyperlinks}
+
+A book~\cite{BOOK:Gray} is cited.
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=.6\linewidth]{\Pic{pdf}{vege}}
+  \vspace{\BeforeCaptionVSpace}
+  \caption{A collection of food.}
+  \label{intro:fig:vege}
+\end{figure}
+
+An online article~\cite{tpc-c} is cited.
+
+\autoref{intro:fig:vege} demonstrates a collection of vegetables. 
+There are broccoli, carrot, pea, onion, snow bean, scallion, etc.
+They are healthy food characteristic of high-fiber and low-calorie. 
+
+\begin{align}
+  Q_{a}^{b} &= \sum_{x=1}^{\infty} \dfrac{\prod_{y=1}^{x} f(y) - a}{\lim_{z \to x} g(z) + b} + 
+               \int_{a}^{b} x^2 dx \label{eq:sample:1}\\
+            &= H_{1}(a, b) + H_{2}(a, b) \nonumber\\
+            &= \gamma(a, b) \label{eq:sample:2}
+\end{align}
+
+\autoref{eq:sample:1}, albeit complex, is equivalent to \autoref{eq:sample:2}.
+Note that we do not label the second line of the derivation process.
+Given $f(x) = x^{2}$ and $0 < x \leq 1$, we have
+\[
+  f(1) = 1^{2} = 1
+\]
+and the result is quite simple. 
+
+You may go to \href{https://github.com/streamjoin/nusthesis}{my GitHub repository} by searching for ``nus latex template'' in Google or accessing the url  \url{https://github.com/streamjoin/nusthesis} directly. 
+
+You may refer to the \href{run:./src/references.bib}{bibliography file} to see its organization.  
+
+\subsection{Hyphenation}
+
+The compound word ``ingredient\zz{}insensitive'', where the hyphen is generated through command \CMD{\zz{}} will be hyphenated for individual words rather than the compound word as a whole. 
+In contrast, ``nutrition-oriented'' with normal hyphen will be hyphenated as a whole compound word, which is unlikely to be recognized by \LaTeX\ and therefore no hyphenation will be carried out unless you provide customized hyphenation for it. 
+
+\section{Thesis Synopsis}
+
+The rest of this thesis is organized as follows. 
+In \autoref{ch:review}, we conduct a literature review. 
+\autoref{ch:rice} provides the study on rice. 
+\autoref{ch:noodle} describes noodles. 
+We conclude the entire thesis as well as discuss further directions for future research in \autoref{ch:concl}.

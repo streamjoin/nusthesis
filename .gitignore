@@ -1,8 +1,10 @@
 pdfbuild/
 ChickenR.pdf
+*.md5
 *-converted-to.pdf
-*.out 
+*.bbl
 *.aux 
+*.out 
 *.blg 
 *.ps 
 *.dvi 
@@ -18,4 +20,5 @@ ChickenR.pdf
 *.lot 
 *.lof 
 *.toc 
-*.bbl
+*.zip
+*trimbib_log*.txt

@@ -1,50 +1,30 @@
-#!/bin/bash
+#!/usr/bin/env bash
+#
+# Compile LaTeX project.
+
 set -o nounset
 set -o errexit
+set -o errtrace
 set -o pipefail
 
-# Name of the output .pdf file
-PDF_NAME="ChickenR"
-
 # Name of the main .tex file
-TEX_NAME="thesis"
+export TEX_NAME="main"
 
-################################################
+# Name of the output .pdf file
+export PDF_NAME="ChickenR"
 
-WORK_DIR=$(pwd)
-SRC_DIR="${WORK_DIR}/src"
-BUILD_DIR="${WORK_DIR}/pdfbuild"
+# Name of the .bib file used as the input to trimbib
+export SRC_BIB_NAME="references"
 
-delete() {
-  if [[ -f $1 ]]; then rm $1; fi
-}
+# Path of the Fairy project
+export FAIRY_HOME="../fairy"
 
-delete_or_else_exit() {
-  delete $1
-  if [[ -f $1 ]]; then exit 1; fi
-}
+# Command for compiling .tex
+export CMD_LATEX="pdflatex"
 
-delete_or_else_exit ${PDF_NAME}.pdf
+# Command for compiling .bib
+export CMD_BIBTEX="biber"
 
-mkdir -p ${BUILD_DIR} 
-rm -rf ${BUILD_DIR}/*
-
-compile_tex() {
-  pdflatex ${TEX_NAME}.tex -output-directory ${BUILD_DIR}
-}
-
-compile_bib() {
-  biber ${BUILD_DIR}/${TEX_NAME}
-}
-
-cd ${SRC_DIR}
-compile_tex 
-compile_bib 
-compile_tex
-compile_tex
-
-cd ${WORK_DIR}
-mv ${BUILD_DIR}/${TEX_NAME}.pdf ${WORK_DIR}/${PDF_NAME}.pdf
-rm -rf ${BUILD_DIR}
-
-exit $?
+# Run build_latex.sh with the above settings
+# shellcheck disable=SC1090
+source "${FAIRY_HOME}/latex/build_latex.sh"
