@@ -10,11 +10,11 @@ You may refer to [this](https://www.dropbox.com/s/rar6yxn9u6n19dp/ChickenR.pdf?d
 
 ## Compilation ##
 
-Run the `build.sh` script to compile in Linux, macOS or emulated Unix-like environment for Windows (e.g., [Cygwin](https://www.cygwin.com/) and [MinGW](http://www.mingw.org/ "Minimalist GNU for Windows")).
-For compilation in the native Windows, run the `build.bat` script.
-The produced .pdf file locates in the same folder. 
+Run the `build.sh` script to compile in Linux, macOS or emulated Unix-like environment for Windows (e.g., [Cygwin](https://www.cygwin.com/) and [MinGW](http://www.mingw.org/ "Minimalist GNU for Windows")). ~~For compilation in the native Windows, run the `build.bat` script.~~ The produced .pdf file locates in the same folder. 
 
 You may customize the name of the output .pdf file by configuring `PDF_NAME` in the above scripts. 
+
+ps: Since [Windows 10 already provides built-in Linux Bash Shell](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/), the original crappy `build.bat` script has been deprecated. Nevertheless, you are still welcomed to provide a robust one via [pull request](https://github.com/streamjoin/nusthesis/pulls) if you believed that's really necessary.
 
 ## Dependencies ##
 
