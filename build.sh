@@ -16,8 +16,10 @@ export PDF_NAME="ChickenR"
 # Name of the .bib file used as the input to trimbib
 export SRC_BIB_NAME="references"
 
-# Path of the Fairy project
-export FAIRY_HOME="../fairy"
+# Path of the Fairy(-lite) project
+# Note: You may get the update, if any, of the compilation script by cloning
+#       the latest Fairy project from https://github.com/streamjoin/fairy
+export FAIRY_HOME="./fairy-lite"
 
 # Command for compiling .tex
 export CMD_LATEX="pdflatex"
