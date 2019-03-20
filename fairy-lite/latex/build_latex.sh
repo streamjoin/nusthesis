@@ -142,8 +142,9 @@ compile() {
     (
       cd "${BUILD_DIR}"
       dvips -P pdf -t letter -o "${TEX_NAME}.ps" "${TEX_NAME}.dvi"
-      ps2pdf -dPDFSETTINGS#/prepress -dCompatibilityLevel#1.4 -dSubsetFonts#true \
-      -dEmbedAllFonts#true "${TEX_NAME}.ps" "${TEX_NAME}.pdf"
+      ps2pdf -dPDFSETTINGS#/prepress -dCompatibilityLevel#1.4 \
+      -dSubsetFonts#true -dEmbedAllFonts#true \
+      "${TEX_NAME}.ps" "${TEX_NAME}.pdf"
     )
   fi
 }

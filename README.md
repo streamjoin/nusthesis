@@ -23,10 +23,19 @@ ps: Since [Windows 10 already provides built-in Linux Bash Shell](https://www.ho
 
 ## Editing ##
 
-Your edit should start with [`main.tex`](main.tex), which is also the compilation entry (as configured in [`build.sh`](build.sh)). Sources of individual chapters as well as abstract, acknowledgments, appendices, etc., are placed in the [`chapters`](chapters/) folder. Illustrative figures and analytical plots should store in the [`pic`](pic/) and [`exp`](exp/) folders respectively. 
+Your edit should start with [`main.tex`](main.tex), which is also the compilation entry (as configured in [`build.sh`](build.sh)). Sources of individual chapters as well as abstract, acknowledgments, appendices, etc., are placed in the [`chapters`](chapters/) folder. Illustrative figures and analytical plottings should be stored in the [`pic`](pic/) and [`exp`](exp/) folders respectively. 
+
+### Printing vs. Electronic ###
+
+Uncomment the following line at the head of `main.tex` when you are producing the thesis for printing hard copies in a **double-sided** fashion. 
+
+    \newcommand*{\DoubleSided}{}
+
+And comment it out when you are producing the electronic thesis for the final submission. 
 
 ## Contact ##
 
 If you encounter any problem of using this template, feel free to contact me or create an issue in this repository. 
 
 All the best for your graduation!
+
