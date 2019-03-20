@@ -1,10 +1,10 @@
 # A LaTeX Template for PhD/Master Thesis of the National University of Singapore (NUS) #
 
-This set of latex code (mainly the `src/nusthesis.cls` file) composes a template of NUS thesis, which is compliant with the [university's requirement](https://www.dropbox.com/s/0jaf4nq8kl7mf7d/General-Guidelines-and-Instructions-on-Format-of-Research-Thesis-and-Electronic-Submission.pdf?dl=0 "General Guidelines and Instructions on Format of Research Thesis and Electronic Submission").
+This set of latex code (mainly the [`nusthesis.cls`](nusthesis.cls)) composes a template of NUS thesis, which is compliant with the [university's requirement](https://www.dropbox.com/s/eljoe8jkf3rrt6z/General-Guidelines-and-Instructions-on-Format-of-Research-Thesis-and-Electronic-Submission-Dec-2018.pdf?dl=0 "General Guidelines and Instructions on Format of Research Thesis and Electronic Submission").
 Using this template to organize your thesis content can save a lot of effort spent on formatting. 
 
 Apart from formatting, the example .tex files also include a lot of latex tricks extracted from my years' experience of using latex.
-These tricks are mainly described and demonstrated in the `src/ch-Intro.tex` file. 
+These tricks are mainly described and demonstrated in the `chapters/ch-Intro.tex` file. 
 
 You may refer to [this](https://www.dropbox.com/s/rar6yxn9u6n19dp/ChickenR.pdf?dl=0) to preview a sample thesis generated using this template.
 
@@ -16,10 +16,14 @@ You may customize the name of the output .pdf file by configuring `PDF_NAME` in 
 
 ps: Since [Windows 10 already provides built-in Linux Bash Shell](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/), the original crappy `build.bat` script has been deprecated. Nevertheless, you are still welcomed to provide a robust one via [pull request](https://github.com/streamjoin/nusthesis/pulls) if you believed that's really necessary.
 
-## Dependencies ##
+### Dependencies ###
 
 - LaTeX ([MiKTeX](https://miktex.org/) or [TeX Live](https://www.tug.org/texlive/))
 - [biber](http://biblatex-biber.sourceforge.net/ "Biber: A BibTeX replacement for users of BibLaTeX")
+
+## Editing ##
+
+Your edit should start with [`main.tex`](main.tex), which is also the compilation entry (as configured in [`build.sh`](build.sh)). Sources of individual chapters as well as abstract, acknowledgments, appendices, etc., are placed in the [`chapters`](chapters/) folder. Illustrative figures and analytical plots should store in the [`pic`](pic/) and [`exp`](exp/) folders respectively. 
 
 ## Contact ##
 
