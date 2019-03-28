@@ -46,18 +46,20 @@ readonly TEX_NAME
 
 readonly PDF_NAME="${PDF_NAME:-"${TEX_NAME}"}"
 
-readonly TRIMBIB_LOG="${TRIMBIB_LOG:-"trimbib_log.txt"}"
-
 readonly CMD_LATEX="${CMD_LATEX:-"latex"}"
 check_cmd_exists "${CMD_LATEX}" "compile .tex"
 
 CMD_BIBTEX="${CMD_BIBTEX-"bibtex"}"
 [[ "${CMD_BIBTEX}" = "<none>" ]] && CMD_BIBTEX=""
 readonly CMD_BIBTEX
-[[ -z "${CMD_BIBTEX}" ]] ||
-check_cmd_exists "${CMD_BIBTEX}" "compile .bib"
+[[ -z "${CMD_BIBTEX}" ]] || check_cmd_exists "${CMD_BIBTEX}" "compile .bib"
 
-readonly JAR_TRIMBIB="${TRIMBIB_HOME:+"${TRIMBIB_HOME}/release/trimbib.jar"}"
+TRIMBIB_JAR="${TRIMBIB_JAR-"${TRIMBIB_HOME:+"${TRIMBIB_HOME}/release/trimbib.jar"}"}"
+[[ "${TRIMBIB_JAR}" = "<none>" ]] && TRIMBIB_JAR=""
+readonly TRIMBIB_JAR
+[[ -z "${TRIMBIB_JAR}" ]] || check_file_exists "${TRIMBIB_JAR}"
+
+readonly TRIMBIB_LOG="${TRIMBIB_LOG:-"trimbib_log.txt"}"
 
 # The main function
 main() {
@@ -95,16 +97,13 @@ prepare() {
     [[ "${tgt_bib_name}" != "${SRC_BIB_NAME}" ]]
     check_err "target .bib cannot be the source .bib itself"
     
-    if [[ -n "${JAR_TRIMBIB}" ]] && [[ -f "${WORK_DIR}/${src_bib}" ]]; then
-      [[ -f "${JAR_TRIMBIB}" ]]
-      check_err "failed to find trimbib.jar in the path '${JAR_TRIMBIB}'"
-      
+    if [[ -n "${TRIMBIB_JAR}" ]] && [[ -f "${WORK_DIR}/${src_bib}" ]]; then
       readonly TGT_BIB="${tgt_bib_name}.bib"
       
       printf "Formatting %s ... " "${WORK_DIR}/${src_bib}"
       
       check_cmd_exists "java"
-      java -jar "${JAR_TRIMBIB}" -i "${WORK_DIR}/${src_bib}" -d "${WORK_DIR}" \
+      java -jar "${TRIMBIB_JAR}" -i "${WORK_DIR}/${src_bib}" -d "${WORK_DIR}" \
       -o "${TGT_BIB}" --overwrite "${TRIMBIB_ARGS[@]}" \
       > "${WORK_DIR}/${TRIMBIB_LOG}" 2>&1
       check_err "failed to format '${WORK_DIR}/${src_bib}'"

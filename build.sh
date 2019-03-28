@@ -27,6 +27,13 @@ export CMD_LATEX="pdflatex"
 # Command for compiling .bib
 export CMD_BIBTEX="biber"
 
+# Path of the trimbib.jar, or <none> for skipping the trimbib processing
+# You may need to clone the project from https://github.com/streamjoin/trimbib
+export TRIMBIB_JAR="<none>"
+
+# Configuration of trimbib
+export TRIMBIB_ARGS=("--pages")
+
 # Run build_latex.sh with the above settings
 # shellcheck disable=SC1090
 source "${FAIRY_HOME}/latex/build_latex.sh"
