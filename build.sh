@@ -13,8 +13,8 @@ export TEX_NAME="main"
 # Name of the output .pdf file
 export PDF_NAME="ChickenR"
 
-# Name of the .bib file used as the input to trimbib
-export SRC_BIB_NAME="references"
+# Name of the .bib file used as the parameter to \bibliography{}
+export TGT_BIB_NAME="references"
 
 # Path of the Fairy(-lite) project
 # Note: You may get the update, if any, of the compilation script by cloning

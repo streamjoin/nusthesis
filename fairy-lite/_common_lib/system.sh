@@ -52,8 +52,7 @@ cmd_md5sum() {
   echo "${cmd}"
 }
 
-function timer()
-{
+timer() {
   if [[ "$#" -eq 0 ]]; then
     date '+%s'
   else
@@ -76,4 +75,18 @@ function timer()
       fi
     fi
   fi
+}
+
+assign_var_once() {
+  declare -r var_name="$1" value="$2"
+  
+  [[ -z "${!var_name:-}" ]] || return 1
+  eval "${var_name}=${value}"
+}
+
+assign_var_once_on_err_exit() {
+  declare -r var_name="$1" value="$2" err_msg="$3"
+  
+  assign_var_once "${var_name}" "${value}" ||
+  check_err "${err_msg:-"Cannot assign variable '${var_name}' multiple times"}"
 }
