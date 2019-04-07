@@ -16,6 +16,19 @@ You may customize the name of the output .pdf file by configuring `PDF_NAME` in 
 
 ps: Since [Windows 10 already provides built-in Linux Bash Shell](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/), the original crappy `build.bat` script has been deprecated. Nevertheless, you are still welcomed to provide a robust one via [pull request](https://github.com/streamjoin/nusthesis/pulls) if you believed that's really necessary.
 
+### Manual Compilation ###
+
+In case you prefer to compile the code manually, please run *exactly* the following commands at the project root directory (i.e., where the `main.tex` locates).
+
+```
+$ pdflatex main.tex
+$ biber main
+$ pdflatex main.tex
+$ pdflatex main.tex
+```
+
+Note that the parameter to `biber` is the filename *without extension*. Moreover, you must run the second `pdflatex` to generate bibliography and resolve citations, and the third `pdflatex` to generate the bibliography entry in the table of contents. 
+
 ### Dependencies ###
 
 - LaTeX ([MiKTeX](https://miktex.org/) or [TeX Live](https://www.tug.org/texlive/))
@@ -29,13 +42,15 @@ Your edit should start with [`main.tex`](main.tex), which is also the compilatio
 
 Uncomment the following line at the head of `main.tex` when you are producing the thesis for printing hard copies in a **double-sided** fashion. 
 
-    \newcommand*{\DoubleSided}{}
+```latex
+\newcommand*{\DoubleSided}{}
+```
 
 And comment it out when you are producing the electronic thesis for the final submission. 
 
 ## Contact ##
 
-If you encounter any problem of using this template, feel free to contact me or create an issue in this repository. 
+If you encounter any problem of using this template, feel free to [contact me](http://linqian.me/) or [create an issue](https://github.com/streamjoin/nusthesis/issues) in this repository. 
 
 All the best for your graduation!
 
