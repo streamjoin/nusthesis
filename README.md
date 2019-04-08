@@ -12,13 +12,19 @@ You may refer to [this](https://www.dropbox.com/s/rar6yxn9u6n19dp/ChickenR.pdf?d
 
 Run the `build.sh` script to compile in Linux, macOS or emulated Unix-like environment for Windows (e.g., [Cygwin](https://www.cygwin.com/) and [MinGW](http://www.mingw.org/ "Minimalist GNU for Windows")). ~~For compilation in the native Windows, run the `build.bat` script.~~ The produced .pdf file locates in the same folder. 
 
-You may customize the name of the output .pdf file by configuring `PDF_NAME` in the above scripts. 
+You may customize the name of the output .pdf file by configuring `PDF_NAME` in the above scripts. Alternatively, you could specify the filename with the `--pdf-name` option (or `-o` for short). For example, 
+
+```
+$ ./build.sh --pdf-name MyThesis
+```
+
+This will produce `MyThesis.pdf` as output.
 
 ps: Since [Windows 10 already provides built-in Linux Bash Shell](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/), the original crappy `build.bat` script has been deprecated. Nevertheless, you are still welcomed to provide a robust one via [pull request](https://github.com/streamjoin/nusthesis/pulls) if you believed that's really necessary.
 
 ### Manual Compilation ###
 
-In case you prefer to compile the code manually, please run *exactly* the following commands at the project root directory (i.e., where the `main.tex` locates).
+In case you prefer to compile the code manually, please run *exactly* the following commands at the project root (i.e., where the `main.tex` locates at the same directory level).
 
 ```
 $ pdflatex main.tex
