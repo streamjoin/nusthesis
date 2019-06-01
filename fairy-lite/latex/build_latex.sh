@@ -2,19 +2,24 @@
 #
 # Execution of compiling LaTeX project.
 
+# Do not allow use of undefined vars. Use ${VAR:-} to use an undefined VAR
 set -o nounset
+# Exit on error. Append "|| true" if you expect an error.
 set -o errexit
+# Exit on error inside any functions or subshells.
 set -o errtrace
+# Catch the error in case mysqldump fails (but gzip succeeds) in `mysqldump |gzip`
 set -o pipefail
+# Turn on traces, useful while debugging but commented out by default
+# set -o xtrace
 
-[[ -n "${__SCRIPT_DIR+x}" ]] ||
-readonly __SCRIPT_DIR="$(cd "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+IFS=$'\t\n'    # Split on newlines and tabs (but not on spaces)
 
-[[ -n "${__SCRIPT_NAME+x}" ]] ||
-readonly __SCRIPT_NAME="$(basename -- "$0")"
+[[ -n "${__SCRIPT_DIR+x}" ]] || readonly __SCRIPT_DIR="$(cd "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+[[ -n "${__SCRIPT_NAME+x}" ]] || readonly __SCRIPT_NAME="$(basename -- "$0")"
 
 # Include libraries
-readonly FAIRY_HOME="${FAIRY_HOME:-${__SCRIPT_DIR}/..}"
+[[ -n "${FAIRY_HOME+x}" ]] || readonly FAIRY_HOME="${__SCRIPT_DIR}/.."
 # shellcheck disable=SC1090
 source "${FAIRY_HOME}/_common_lib/argument_utils.sh"
 # shellcheck disable=SC1090
@@ -25,7 +30,7 @@ source "${FAIRY_HOME}/_common_lib/output_utils.sh"
 source "${FAIRY_HOME}/_common_lib/system.sh"
 
 # Global variables
-readonly START_TIME="$(timer)"
+[[ -n "${__START_TIME+x}" ]] || readonly __START_TIME="$(timer)"
 
 # The main function
 main() {
@@ -36,10 +41,12 @@ main() {
   pushd "${WORK_DIR}" >/dev/null
   clean_all
   if [[ -z "${FLAG_ARG_CLEAN_ONLY:-}" ]]; then
-    prepare
+    mkdir -p "${BUILD_DIR}"
+    prepare_bib
     compile
     deliver
     finish
+    delete_dir "${BUILD_DIR}"
   fi
   popd >/dev/null
 }
@@ -99,45 +106,43 @@ clean_all() {
   echo "done"
 }
 
-prepare() {
-  mkdir -p "${BUILD_DIR}"
+prepare_bib() {
+  [[ -n "${CMD_BIBTEX}" ]] || return 0
   
-  if [[ -n "${CMD_BIBTEX}" ]]; then
-    local -r src_bib="${SRC_BIB_NAME:-}.bib"
+  local -r src_bib="${SRC_BIB_NAME:-}.bib"
+  
+  local -r tgt_bib_name="${TGT_BIB_NAME:-"${SRC_BIB_NAME:+"${SRC_BIB_NAME}-trim"}"}"
+  [[ "${tgt_bib_name}" != "${SRC_BIB_NAME:-}" ]]
+  check_err "Target .bib cannot be the source .bib itself"
+  
+  if [[ -n "${TRIMBIB_JAR}" ]] && [[ -f "${WORK_DIR}/${src_bib}" ]]; then
+    readonly TGT_BIB="${tgt_bib_name}.bib"
     
-    local -r tgt_bib_name="${TGT_BIB_NAME:-"${SRC_BIB_NAME:+"${SRC_BIB_NAME}-trim"}"}"
-    [[ "${tgt_bib_name}" != "${SRC_BIB_NAME:-}" ]]
-    check_err "Target .bib cannot be the source .bib itself"
+    printf "Formatting %s ... " "${WORK_DIR}/${src_bib}"
     
-    if [[ -n "${TRIMBIB_JAR}" ]] && [[ -f "${WORK_DIR}/${src_bib}" ]]; then
+    check_cmd_exists "java"
+    java -jar "${TRIMBIB_JAR}" -i "${WORK_DIR}/${src_bib}" -d "${WORK_DIR}" \
+    -o "${TGT_BIB}" --overwrite "${TRIMBIB_ARGS[@]}" \
+    > "${WORK_DIR}/${TRIMBIB_LOG}" 2>&1
+    check_err "Failed to format '${WORK_DIR}/${src_bib}'"
+    
+    echo "done"
+    info "Formatted bib: ${WORK_DIR}/${TGT_BIB}"
+    info "Log of bib formatting: ${WORK_DIR}/${TRIMBIB_LOG}"
+    
+  else  # no bib formatting to perform
+    if [[ -f "${WORK_DIR}/${tgt_bib_name}.bib" ]]; then
       readonly TGT_BIB="${tgt_bib_name}.bib"
-      
-      printf "Formatting %s ... " "${WORK_DIR}/${src_bib}"
-      
-      check_cmd_exists "java"
-      java -jar "${TRIMBIB_JAR}" -i "${WORK_DIR}/${src_bib}" -d "${WORK_DIR}" \
-      -o "${TGT_BIB}" --overwrite "${TRIMBIB_ARGS[@]}" \
-      > "${WORK_DIR}/${TRIMBIB_LOG}" 2>&1
-      check_err "Failed to format '${WORK_DIR}/${src_bib}'"
-      
-      echo "done"
-      info "Formatted bib: ${WORK_DIR}/${TGT_BIB}"
-      info "Log of bib formatting: ${WORK_DIR}/${TRIMBIB_LOG}"
-      
-    else  # no bib formatting to perform
-      if [[ -f "${WORK_DIR}/${tgt_bib_name}.bib" ]]; then
-        readonly TGT_BIB="${tgt_bib_name}.bib"
-      elif [[ -f "${WORK_DIR}/${src_bib}" ]]; then
-        readonly TGT_BIB="${src_bib}"
-      else
-        check_err "Failed to find .bib file"
-      fi
+    elif [[ -f "${WORK_DIR}/${src_bib}" ]]; then
+      readonly TGT_BIB="${src_bib}"
+    else
+      check_err "Failed to find .bib file"
     fi
-    
-    ln -s "${WORK_DIR}/${TGT_BIB}" "${BUILD_DIR}/${TGT_BIB}"
-    
-    find_and_link_files_by_ext "bst" "${WORK_DIR}" "${BUILD_DIR}" || true
   fi
+  
+  ln -s "${WORK_DIR}/${TGT_BIB}" "${BUILD_DIR}/${TGT_BIB}"
+  
+  find_and_link_files_by_ext "bst" "${WORK_DIR}" "${BUILD_DIR}" || true
 }
 
 compile() {
@@ -204,8 +209,6 @@ deliver() {
   [[ -n "${CMD_BIBTEX}" ]] &&
   mv "${BUILD_DIR}/${TEX_NAME}.bbl" "${WORK_DIR}/${TEX_NAME}.bbl"
   
-  delete_dir "${BUILD_DIR}"
-  
   readonly CMD_MD5SUM="$(cmd_md5sum)"
   [[ "$(command -v "${CMD_MD5SUM}")" ]] &&
   ${CMD_MD5SUM} "${WORK_DIR}/${PDF_NAME}.pdf" > "${WORK_DIR}/${PDF_NAME}.md5"
@@ -218,7 +221,7 @@ finish() {
   info "------------------------------------------------------------------------"
   info "Output: ${WORK_DIR}/${PDF_NAME}.pdf (${pdf_bytes} bytes)"
   info "Finished at: $(date +"%T %Z, %-d %B %Y")"
-  info "Total time: $(timer "${START_TIME}")"
+  info "Total time: $(timer "${__START_TIME}")"
   info "------------------------------------------------------------------------"
 }
 
@@ -258,7 +261,8 @@ check_args() {
       ;;
       # Default: assign variable
       * )
-        arg_set_opt_var "--pdf-name" "FLAG_ARG_SET_PDF_NAME" "ARG_PDF_NAME" "${arg}"
+        arg_set_opt_var "--pdf-name" "FLAG_ARG_SET_PDF_NAME" "ARG_PDF_NAME" "${arg}" ||
+        arg_set_pos_var "${arg}"    # KEEP THIS AT THE TAIL
       ;;
     esac
   done

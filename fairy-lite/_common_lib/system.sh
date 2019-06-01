@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 #
 # Operating system related utilities.
-#
-# Dependencies: output_utils.sh
+
+[[ -n "${__FAIRY_COMMON_LIB_SYSTEM_SH__+x}" ]] && return
+readonly __FAIRY_COMMON_LIB_SYSTEM_SH__=1
+
+# Include dependencies
+[[ -n "${FAIRY_HOME+x}" ]] || readonly FAIRY_HOME="$(cd "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)/.."
+# shellcheck disable=SC1090
+source "${FAIRY_HOME}/_common_lib/output_utils.sh"
 
 check_cmd_exists() {
   [[ "$#" -gt 0 ]] && [[ "$#" -le 2 ]]
@@ -77,6 +83,17 @@ timer() {
   fi
 }
 
+#######################################
+# Assign value to variable.
+# Globals:
+#   <none>
+# Arguments:
+#   $1: Name of variable to set
+#   $2: Assignment value
+# Returns:
+#   0 if the variable is successfully set with the value specified;
+#   non-zero if the variable has been previously set
+#######################################
 assign_var_once() {
   declare -r var_name="$1" value="$2"
   
@@ -84,6 +101,17 @@ assign_var_once() {
   eval "${var_name}=${value}"
 }
 
+#######################################
+# Assign value to variable, or exit if the variable has been previously set.
+# Globals:
+#   <none>
+# Arguments:
+#   $1: Name of variable to set
+#   $2: Assignment value
+#   $3 (optional): Error message
+# Returns:
+#  Variable set with the value specified
+#######################################
 assign_var_once_on_err_exit() {
   declare -r var_name="$1" value="$2" err_msg="$3"
   
