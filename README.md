@@ -1,6 +1,6 @@
 # A LaTeX Template for PhD/Master Thesis of the National University of Singapore (NUS) #
 
-This set of latex code (mainly the [`nusthesis.cls`](nusthesis.cls)) composes a template of NUS thesis, which is compliant with the [university's requirement](https://www.dropbox.com/s/eljoe8jkf3rrt6z/General-Guidelines-and-Instructions-on-Format-of-Research-Thesis-and-Electronic-Submission.pdf?dl=0 "General Guidelines and Instructions on Format of Research Thesis and Electronic Submission").
+This set of latex code (mainly the [`nusthesis.cls`](nusthesis.cls)) composes a template of NUS thesis, which is compliant with the [university's requirement](https://www.dropbox.com/s/hg6a5jpvgvhz6tl/General-Guidelines-and-Instructions-on-Format-of-Research-Thesis-and-Electronic-Submission.pdf?dl=0 "General Guidelines and Instructions on Format of Research Thesis and Electronic Submission").
 Using this template to organize your thesis content can save a lot of effort spent on formatting. 
 
 Apart from formatting, the example .tex files also include a lot of latex tricks extracted from my years' experience of using latex.
