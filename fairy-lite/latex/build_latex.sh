@@ -198,8 +198,8 @@ compile_bib() {
         exit 127
       ;;
     esac
-    check_err "Failed to compile '\\\\bibliography{${TGT_BIB%.*}}'"
   )
+  check_err "Failed to compile '\\\\bibliography{${TGT_BIB%.*}}'"
 }
 
 deliver() {
