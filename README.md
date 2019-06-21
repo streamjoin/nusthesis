@@ -6,7 +6,7 @@ Using this template to organize your thesis content can save a lot of effort spe
 Apart from formatting, the example .tex files also include a lot of latex tricks extracted from my years' experience of using latex.
 These tricks are mainly described and demonstrated in the `chapters/ch-Intro.tex` file. 
 
-You may refer to [this](https://www.dropbox.com/s/rar6yxn9u6n19dp/ChickenR.pdf?dl=0) to preview a sample thesis generated using this template.
+You may refer to [this](https://www.dropbox.com/s/rar6yxn9u6n19dp/ChickenR.pdf?dl=0) to preview a sample thesis generated using this template. In addition, the template is also available on [Overleaf](https://www.overleaf.com/latex/templates/thesis-template-of-the-national-university-of-singapore-nus/gkvbbgybrjnw) (but it may not be timely synchronous with updates maintained in this repository).
 
 ## Compilation ##
 
