@@ -1,0 +1,55 @@
+{
+	"name": "NUS Thesis",
+	"build": {
+		"dockerfile": "Dockerfile",
+	},
+
+	// Set *default* container specific settings.json values on container create.
+	"settings": {
+		"latex-workshop.latex.tools": [
+			{
+				"name": "pdflatex",
+				"command": "pdflatex",
+				"args": [
+					"-synctex=1",
+					"-interaction=nonstopmode",
+					"-file-line-error",
+					"%DOC%"
+				]
+			},
+			{
+				"name": "biber",
+				"command": "biber",
+				"args": [
+					"%DOCFILE%"
+				]
+			}
+		  ],
+		"latex-workshop.latex.recipes": [
+			{
+				"name": "pdflatex->biber->2*pdflatex",
+				"tools": [
+					"pdflatex",
+					"biber",
+					"pdflatex",
+					"pdflatex"
+				]
+			}
+		  ], 
+	},
+
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [ "james-yu.latex-workshop",],
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Uncomment to use the Docker CLI from inside the container. See https://aka.ms/vscode-remote/samples/docker-from-docker.
+	// "mounts": [ "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind" ],
+
+	// Uncomment when using a ptrace-based debugger like C++, Go, and Rust
+	// "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
+
+	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "vscode"
+}
