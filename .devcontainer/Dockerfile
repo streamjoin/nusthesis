@@ -13,5 +13,6 @@ RUN apt-get update \
     texlive-science \
     texlive-font-utils \
     biber \
+    chktex \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
