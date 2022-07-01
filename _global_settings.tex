@@ -39,6 +39,11 @@
 \DeclareFieldFormat*{title}{``#1''\newunitpunct} % move comma outside the quotation mark
 \addbibresource{references.bib}
 
+\newcommand{\citet}[1]{%
+	\AtNextCite{\defcounter{maxnames}{1}\defcounter{minnames}{1}}%
+	\citeauthor{#1}%
+}
+
 \usepackage{microtype} % Better typography
 \usepackage{tabulary} % Automatic table sizing
 \usepackage{hhline}
